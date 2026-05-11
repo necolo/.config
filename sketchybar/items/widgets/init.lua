@@ -1,0 +1,7 @@
+require("items.widgets.volume")
+require("items.widgets.battery")
+require("items.widgets.network")
+require("items.widgets.input")
+require("items.widgets.mattermost")
+require("items.widgets.ram")
+require("items.widgets.cpu")

@@ -1,0 +1,30 @@
+/*
+!sketchybar/
+!.gitignore
+
+# OS files
+.DS_Store
+
+# Sensitive Data
+gh/hosts.yml
+sunshine/credentials/
+clash/*.yaml
+!clash/config.yaml # Keep a template if you want, but be careful
+
+# Logs and State
+*.log
+clash/cache.db
+clash/Country.mmdb
+sunshine/sunshine_state.json
+iterm2/sockets/
+coc/memos.json
+coc/suggest.txt
+
+# Game Saves
+StardewValley/
+
+# Package Manager / App Caches
+yarn/
+uv/
+raycast/extensions/
+coc/extensions/node_modules/
