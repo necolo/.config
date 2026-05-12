@@ -30,56 +30,6 @@ if not aerospace or not aerospace:is_initialized() then
     return
 end
 
-local nsscreen_to_display = {}
-local mapping_complete = false
-local log_file = "/tmp/sketchybar_workspaces.log"
-local display_change_pending = false
-local DEBOUNCE_DELAY = 1.0
-
-local function log_mapping(msg)
-    local f = io.open(log_file, "a")
-    if f then
-        f:write(os.date("%H:%M:%S") .. " " .. msg .. "\n")
-        f:close()
-    end
-end
-
-local function build_monitor_mapping()
-    local ok, err = pcall(function()
-        local monitors_output = aerospace:list_monitors()
-        if not monitors_output or monitors_output == "" then return end
-
-        local monitor_names_by_position = {}
-        for line in monitors_output:gmatch("[^\r\n]+") do
-            local position, name = line:match("(%d+)%s*|%s*(.+)")
-            if position and name then
-                monitor_names_by_position[name:match("^%s*(.-)%s*$")] = tonumber(position)
-            end
-        end
-
-        local workspace_info = aerospace:query_workspaces()
-        if not workspace_info or type(workspace_info) ~= "table" then return end
-
-        local processed = {}
-        nsscreen_to_display = {}
-        for _, ws in ipairs(workspace_info) do
-            local nsscreen_id_raw = ws["monitor-appkit-nsscreen-screens-id"]
-            if nsscreen_id_raw then
-                local nsscreen_id = math.floor(nsscreen_id_raw)
-                local monitor_name = ws["monitor-name"] or ""
-                monitor_name = monitor_name:match("^%s*(.-)%s*$")
-                if not processed[nsscreen_id] and monitor_names_by_position[monitor_name] then
-                    nsscreen_to_display[nsscreen_id] = monitor_names_by_position[monitor_name]
-                    processed[nsscreen_id] = true
-                end
-            end
-        end
-        mapping_complete = true
-    end)
-end
-
-build_monitor_mapping()
-
 local mode_indicator = sbar.add("item", "aerospace.mode", {
     position = "left",
     icon = {
@@ -130,8 +80,7 @@ local function withWindows(f)
                     if ws["workspace-is-visible"] then table.insert(visible_workspaces, ws) end
                     local nsscreen_id_raw = ws["monitor-appkit-nsscreen-screens-id"]
                     if nsscreen_id_raw then
-                        local nsscreen_id = math.floor(nsscreen_id_raw)
-                        workspace_monitors[ws.workspace] = nsscreen_to_display[nsscreen_id] or nsscreen_id
+                        workspace_monitors[ws.workspace] = math.floor(nsscreen_id_raw)
                     end
                 end
                 f({ open_windows = open_windows, focused_workspace = focused_workspace, visible_workspaces = visible_workspaces, workspace_monitors = workspace_monitors })
