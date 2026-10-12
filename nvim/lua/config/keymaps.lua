@@ -2,6 +2,19 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
+vim.keymap.set("n", "<leader>jj", function()
+  Snacks.terminal({ "jjui" }, {
+    interactive = true,
+    win = {
+      position = "float",
+      width = 0.9,
+      height = 0.9,
+      title = "JJUI",
+      keys = { term_normal = false },
+    },
+  })
+end, { desc = "JJUI" })
+
 vim.keymap.set("x", "<leader>cy", function()
   local path = vim.api.nvim_buf_get_name(0)
   if path == "" then
