@@ -4,8 +4,11 @@
 
 keybinds clear-defaults=true {
     // Native unlock-first: F12 opens the Zellij menu; Alt shortcuts remain globally available.
+    // Alt+Enter toggles the focused pane's fullscreen state in every mode.
     locked {
         bind "F12" { SwitchToMode "normal"; }
+        bind "PageUp" { PageScrollUp; }
+        bind "PageDown" { PageScrollDown; }
     }
     normal {
         bind "p" { SwitchToMode "pane"; }
@@ -98,10 +101,6 @@ keybinds clear-defaults=true {
         bind "tab" { MovePane; }
     }
     scroll {
-        bind "Alt left" { MoveFocusOrTab "left"; SwitchToMode "locked"; }
-        bind "Alt down" { MoveFocus "down"; SwitchToMode "locked"; }
-        bind "Alt up" { MoveFocus "up"; SwitchToMode "locked"; }
-        bind "Alt right" { MoveFocusOrTab "right"; SwitchToMode "locked"; }
         bind "c" { CopyLastCommandOutput; SwitchToMode "locked"; }
         bind "e" { EditScrollback; SwitchToMode "locked"; }
         bind "Alt h" { MoveFocusOrTab "left"; SwitchToMode "locked"; }
@@ -170,6 +169,7 @@ keybinds clear-defaults=true {
         bind "Alt =" { Resize "Increase"; }
         bind "Alt [" { PreviousSwapLayout; }
         bind "Alt ]" { NextSwapLayout; }
+        bind "Alt Enter" { ToggleFocusFullscreen; }
         bind "Alt f" { ToggleFloatingPanes; }
         bind "Alt i" { MoveTab "left"; }
         bind "Alt n" { NewPane; }
@@ -181,10 +181,6 @@ keybinds clear-defaults=true {
         bind "F12" { SwitchToMode "locked"; }
     }
     shared_except "scroll" {
-        bind "Alt left" { MoveFocusOrTab "left"; }
-        bind "Alt down" { MoveFocus "down"; }
-        bind "Alt up" { MoveFocus "up"; }
-        bind "Alt right" { MoveFocusOrTab "right"; }
         bind "Alt h" { MoveFocusOrTab "left"; }
         bind "Alt j" { MoveFocus "down"; }
         bind "Alt k" { MoveFocus "up"; }
@@ -322,7 +318,7 @@ theme "nightfox"
 // 
 default_mode "locked"
 // Mouse scrolling and pane focus must not implicitly enter scroll mode.
-scroll_mode_sync false
+// scroll_mode_sync false
  
 // Choose the path to the default shell that zellij will use for opening new panes
 // Default: $SHELL
