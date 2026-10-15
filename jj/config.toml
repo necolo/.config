@@ -1,0 +1,14 @@
+#:schema https://docs.jj-vcs.dev/latest/config-schema.json
+#
+# Configure username and email in zsh:
+# export JJ_USER=""
+# export JJ_EMAIL=""
+
+[ui]
+editor = "vim"
+
+[template-aliases]
+"format_short_signature(signature)" = "signature.name()"
+
+[revsets]
+log = "@ | mine() | trunk():: | master@origin"
