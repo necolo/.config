@@ -5,6 +5,7 @@
 keybinds clear-defaults=true {
     // Native unlock-first: F12 opens the Zellij menu; Alt shortcuts remain globally available.
     // Alt+Enter toggles the focused pane's fullscreen state in every mode.
+    // Cmd+1-9 selects tabs in every mode without changing the current mode.
     locked {
         bind "F12" { SwitchToMode "normal"; }
         bind "PageUp" { PageScrollUp; }
@@ -176,6 +177,15 @@ keybinds clear-defaults=true {
         bind "Alt o" { MoveTab "right"; }
         bind "Alt p" { TogglePaneInGroup; }
         bind "Alt Shift p" { ToggleGroupMarking; }
+        bind "Super 1" { GoToTab 1; }
+        bind "Super 2" { GoToTab 2; }
+        bind "Super 3" { GoToTab 3; }
+        bind "Super 4" { GoToTab 4; }
+        bind "Super 5" { GoToTab 5; }
+        bind "Super 6" { GoToTab 6; }
+        bind "Super 7" { GoToTab 7; }
+        bind "Super 8" { GoToTab 8; }
+        bind "Super 9" { GoToTab 9; }
     }
     shared_except "locked" {
         bind "F12" { SwitchToMode "locked"; }
@@ -485,7 +495,7 @@ pane_frame_style "full"
 // (Requires restart)
 // Default: true (if the host terminal supports it)
 // 
-// support_kitty_keyboard_protocol false
+support_kitty_keyboard_protocol true
  
 // Enable or disable support for the Kitty Graphics Protocol, used to display images (the host terminal must also support it)
 // (Requires restart)
