@@ -3,6 +3,7 @@ local exclude = {
   "**/node_modules",
   "**/dist",
   "**/.DS_Store",
+  "**/.jj",
 }
 
 return {

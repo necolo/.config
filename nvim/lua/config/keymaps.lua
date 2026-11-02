@@ -2,18 +2,29 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
+local function float_term(cmd, title, opts)
+  Snacks.terminal(
+    cmd,
+    vim.tbl_deep_extend("force", {
+      interactive = true,
+      win = {
+        position = "float",
+        width = 0.9,
+        height = 0.9,
+        title = title,
+        keys = { term_normal = false },
+      },
+    }, opts or {})
+  )
+end
+
 vim.keymap.set("n", "<leader>jj", function()
-  Snacks.terminal({ "jjui" }, {
-    interactive = true,
-    win = {
-      position = "float",
-      width = 0.9,
-      height = 0.9,
-      title = "JJUI",
-      keys = { term_normal = false },
-    },
-  })
+  float_term({ "jjui" }, "JJUI")
 end, { desc = "JJUI" })
+
+vim.keymap.set("n", "<leader>gv", function()
+  float_term({ "hunk", "diff" }, "Hunk", { cwd = LazyVim.root.git() })
+end, { desc = "Hunk (all changes)" })
 
 vim.keymap.set("x", "<leader>cy", function()
   local path = vim.api.nvim_buf_get_name(0)

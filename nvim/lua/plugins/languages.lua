@@ -4,21 +4,9 @@ return {
     opts = {
       servers = {
         codebook = {},
-        harper_ls = {
-          filetypes = {
-            "markdown",
-            "text",
-            "gitcommit",
-          },
-          settings = {
-            ["harper-ls"] = {
-              dialect = "British",
-              diagnosticSeverity = "hint",
-            },
-          },
-        },
         marksman = {},
         jsonls = {},
+        eslint = {},
         yamlls = {
           settings = {
             redhat = { telemetry = { enabled = false } },
