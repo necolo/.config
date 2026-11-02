@@ -11,4 +11,4 @@ editor = "vim"
 "format_short_signature(signature)" = "signature.name()"
 
 [revsets]
-log = "@ | mine() | trunk():: | master@origin"
+log = "@ | mine() | ancestors(trunk(), 10) | bookmarks()"
