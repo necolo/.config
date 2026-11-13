@@ -8,8 +8,6 @@ keybinds clear-defaults=true {
     // Cmd+1-9 selects tabs in every mode without changing the current mode.
     locked {
         bind "F12" { SwitchToMode "normal"; }
-        bind "PageUp" { PageScrollUp; }
-        bind "PageDown" { PageScrollDown; }
     }
     normal {
         bind "p" { SwitchToMode "pane"; }
