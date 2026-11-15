@@ -3,3 +3,4 @@
 -- Add any additional options here
 
 vim.opt.spelllang = { "en", "cjk" }
+vim.opt.fillchars:append({ diff = " " })
