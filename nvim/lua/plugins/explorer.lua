@@ -10,6 +10,14 @@ return {
   {
     "folke/snacks.nvim",
     opts = {
+      lazygit = {
+        config = {
+          os = {
+            edit = [[nvim --server "$NVIM" --remote-send "q" && nvim --server "$NVIM" --remote {{filename}}]],
+            editAtLine = [[nvim --server "$NVIM" --remote-send "q" && nvim --server "$NVIM" --remote {{filename}} && nvim --server "$NVIM" --remote-send ":{{line}}<CR>"]],
+          },
+        },
+      },
       picker = {
         sources = {
           explorer = { hidden = true, ignored = true, exclude = exclude },
